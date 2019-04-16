@@ -158,13 +158,16 @@ baidu_push: false
 # External url should start with http:// or https://
 menu:
   home: / || home
-  #about: /about/ || user
-  #tags: /tags/ || tags
-  #categories: /categories/ || th
+  me: /me/ || me
+  about: /about/ || user
   archives: /archives/ || archive
-  #schedule: /schedule/ || calendar
-  #sitemap: /sitemap.xml || sitemap
-  #commonweal: /404/ || heartbeat
+  tags: /tags/ || tags
+  categories: /categories/ || th
+  schedule: /schedule/ || calendar
+  sitemap: /sitemap.xml || sitemap
+  commonweal: /404/ || heartbeat
+  message: /Message/ || Message
+  search: /Search/ || Search
 
 # Enable / Disable menu icons / item badges.
 menu_settings:

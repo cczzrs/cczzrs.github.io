@@ -1819,7 +1819,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #f5ff7c;
+  background: #85792e;
 }
 .feed-link,
 .chat {
@@ -2894,11 +2894,8 @@ ul.breadcrumb li+li:last-child {
   color: #fff;
   background: #49b1f5;
 }
-.post-toc .nav .nav-child {
-  display: block;
-}
 .post-toc ol {
-  font-size: 13px;
+  font-size: 11px;
 }
 .header-inner {
   box-shadow: inset 0px 0px 20px 4px rgba(0,0,0,0.55);
@@ -2932,6 +2929,18 @@ ul.breadcrumb li+li:last-child {
 .posts-expand {
   padding-top: 0px;
 }
+.posts-expands {
+  box-shadow: 1px 0px 20px 4px rgba(0,0,0,0.55);
+  border-radius: 22px;
+  padding: 10px;
+  margin-bottom: 50px;
+}
 .site-author-image {
   border-radius: 100%;
+}
+.category-all-page .category-list-item {
+  margin: 5px 10px 5px 20px;
+}
+.tag-cloud a:hover {
+  color: #f00 !important;
 }

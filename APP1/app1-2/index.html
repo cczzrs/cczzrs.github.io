@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.lug.ustc.edu.cn/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.ico?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.ico?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.png?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":true,"dimmer":true},
+    back2top: true,
+    back2top_sidebar: true,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+
+  <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/7e15e796.js","daovoice")</script>
+  <script>
+  daovoice('init', {
+    app_id: "7e15e796"
+  });
+  daovoice('update');
+ </script>
+
+
+  <meta name="description" content="python 后端 django rest framework(简称 drf) 开发 我这里只讲一些比较重要的难点，本人也是边学边开发的（codeing 是很快的，一半以上的时间都用来学习了）。  http 请求进程流程概况： http 请求 &amp;lt;=&amp;gt; urls.py 中配置转发 &amp;lt;=&amp;gt; views.py 对应处理类及方法 &amp;lt;=&amp;gt; serializers.py 对">
+<meta name="keywords" content="python,django,drf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python 后端 django rest framework(简称 drf) 开发">
+<meta property="og:url" content="http://cczzrs.me/APP1/app1-2/index.html">
+<meta property="og:site_name" content="cczzrs Blog">
+<meta property="og:description" content="python 后端 django rest framework(简称 drf) 开发 我这里只讲一些比较重要的难点，本人也是边学边开发的（codeing 是很快的，一半以上的时间都用来学习了）。  http 请求进程流程概况： http 请求 &amp;lt;=&amp;gt; urls.py 中配置转发 &amp;lt;=&amp;gt; views.py 对应处理类及方法 &amp;lt;=&amp;gt; serializers.py 对">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-25T00:24:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python 后端 django rest framework(简称 drf) 开发">
+<meta name="twitter:description" content="python 后端 django rest framework(简称 drf) 开发 我这里只讲一些比较重要的难点，本人也是边学边开发的（codeing 是很快的，一半以上的时间都用来学习了）。  http 请求进程流程概况： http 请求 &amp;lt;=&amp;gt; urls.py 中配置转发 &amp;lt;=&amp;gt; views.py 对应处理类及方法 &amp;lt;=&amp;gt; serializers.py 对">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="cczzrs Blog" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="http://cczzrs.me/APP1/app1-2/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入查看密码') !== ''){
+                alert('密码不正确,请询问主编大大！（WX:cczzrs）');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+  <title>python 后端 django rest framework(简称 drf) 开发 | cczzrs Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">cczzrs Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">从从的博客</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-message">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/Message/" rel="section"><i class="menu-item-icon fa fa-fw fa-comments"></i> <br>message</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-me">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/me/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>me</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-anchor"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/commonweal/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益 404</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://cczzrs.me/APP1/app1-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cczzrs">
+      <meta itemprop="description" content="Dreams are you live for">
+      <meta itemprop="image" content="/images/cczzrs.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cczzrs Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python 后端 django rest framework(简称 drf) 开发
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-25 08:24:57" itemprop="dateCreated datePublished" datetime="2019-04-25T08:24:57+08:00">2019-04-25</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/APP1/" itemprop="url" rel="index"><span itemprop="name">APP1</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/APP1/app1-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/APP1/app1-2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="python-后端-django-rest-framework-简称-drf-开发"><a href="#python-后端-django-rest-framework-简称-drf-开发" class="headerlink" title="python 后端 django rest framework(简称 drf) 开发"></a>python 后端 django rest framework(简称 drf) 开发</h2><blockquote>
+<h5 id="我这里只讲一些比较重要的难点，本人也是边学边开发的（codeing-是很快的，一半以上的时间都用来学习了）。"><a href="#我这里只讲一些比较重要的难点，本人也是边学边开发的（codeing-是很快的，一半以上的时间都用来学习了）。" class="headerlink" title="我这里只讲一些比较重要的难点，本人也是边学边开发的（codeing 是很快的，一半以上的时间都用来学习了）。"></a>我这里只讲一些比较重要的难点，本人也是边学边开发的（codeing 是很快的，一半以上的时间都用来学习了）。</h5></blockquote>
+<blockquote>
+<h4 id="http-请求进程流程概况：-http-请求-lt-gt-urls-py-中配置转发-lt-gt-views-py-对应处理类及方法-lt-gt-serializers-py-对应处理类及方法-lt-gt-DB-数据库"><a href="#http-请求进程流程概况：-http-请求-lt-gt-urls-py-中配置转发-lt-gt-views-py-对应处理类及方法-lt-gt-serializers-py-对应处理类及方法-lt-gt-DB-数据库" class="headerlink" title="http 请求进程流程概况： http 请求 &lt;=&gt; urls.py 中配置转发 &lt;=&gt; views.py 对应处理类及方法 &lt;=&gt; serializers.py 对应处理类及方法 &lt;=&gt; DB 数据库"></a>http 请求进程流程概况： http 请求 &lt;=&gt; urls.py 中配置转发 &lt;=&gt; views.py 对应处理类及方法 &lt;=&gt; serializers.py 对应处理类及方法 &lt;=&gt; DB 数据库</h4><h4 id="按照这个流程开发即快速又高效，前后打通之后，分分钟就能完成一个功能模块的增删改查需求（真的是分分钟哦），"><a href="#按照这个流程开发即快速又高效，前后打通之后，分分钟就能完成一个功能模块的增删改查需求（真的是分分钟哦），" class="headerlink" title="按照这个流程开发即快速又高效，前后打通之后，分分钟就能完成一个功能模块的增删改查需求（真的是分分钟哦），"></a>按照这个流程开发即快速又高效，前后打通之后，分分钟就能完成一个功能模块的增删改查需求（真的是分分钟哦），</h4><h4 id="请用-jwt-的身份认证，后台管理可以用-xadmin（目前只能支持-django2-0及以下版本），xadmin-模块的问题需要手动修复的。"><a href="#请用-jwt-的身份认证，后台管理可以用-xadmin（目前只能支持-django2-0及以下版本），xadmin-模块的问题需要手动修复的。" class="headerlink" title="请用 jwt 的身份认证，后台管理可以用 xadmin（目前只能支持 django2.0及以下版本），xadmin 模块的问题需要手动修复的。"></a>请用 jwt 的身份认证，后台管理可以用 xadmin（目前只能支持 django2.0及以下版本），xadmin 模块的问题需要手动修复的。</h4></blockquote>
+<ul>
+<li><h4 id="models-py-基本使用，对应的数据库的表"><a href="#models-py-基本使用，对应的数据库的表" class="headerlink" title="models.py 基本使用，对应的数据库的表"></a>models.py 基本使用，对应的数据库的表</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">from</span> django.contrib.auth.models <span class="keyword">import</span> AbstractUser</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserAccount</span><span class="params">(AbstractUser)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    用户账户信息模型</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    GENDER = ((<span class="string">'man'</span>, <span class="string">u"男"</span>), (<span class="string">'girl'</span>, <span class="string">"女"</span>), (<span class="string">'null'</span>, <span class="string">"未知"</span>))</span><br><span class="line">    JOB = ((<span class="string">'boos'</span>, <span class="string">u"老板"</span>), (<span class="string">'white-collar'</span>, <span class="string">"白领"</span>), (<span class="string">'worker'</span>, <span class="string">"打工"</span>), (<span class="string">'student'</span>, <span class="string">"学生"</span>), (<span class="string">'hobos'</span>, <span class="string">"无业游民"</span>))</span><br><span class="line">    USERACCOUNT_STATUS = ((<span class="number">0</span>, <span class="string">u"失效"</span>), (<span class="number">1</span>, <span class="string">u"有效"</span>))</span><br><span class="line"></span><br><span class="line">    avatar = models.ImageField(upload_to=<span class="string">"images/avatar/"</span>, null=<span class="literal">True</span>, blank=<span class="literal">True</span>, verbose_name=<span class="string">"头像"</span>)</span><br><span class="line">    bji = models.ImageField(upload_to=<span class="string">"images/bji/"</span>, null=<span class="literal">True</span>, blank=<span class="literal">True</span>, verbose_name=<span class="string">"背景图"</span>)</span><br><span class="line">    username = models.CharField(max_length=<span class="number">16</span>, unique=<span class="literal">True</span>, blank=<span class="literal">False</span>, verbose_name=<span class="string">"昵称"</span>)</span><br><span class="line">    id = models.AutoField(db_column=<span class="string">'ID'</span>, primary_key=<span class="literal">True</span>)</span><br><span class="line">    password = models.CharField(max_length=<span class="number">256</span>, null=<span class="literal">True</span>, verbose_name=<span class="string">"密码"</span>)</span><br><span class="line">    mobile = models.CharField(max_length=<span class="number">11</span>, unique=<span class="literal">True</span>, blank=<span class="literal">False</span>, verbose_name=<span class="string">"手机号"</span>)</span><br><span class="line">    gender = models.CharField(max_length=<span class="number">4</span>, choices=GENDER, default=<span class="string">'null'</span>, verbose_name=<span class="string">"性别"</span>)</span><br><span class="line">    job = models.CharField(max_length=<span class="number">12</span>, choices=JOB, default=<span class="string">'wuyeyoumin'</span>, verbose_name=<span class="string">"职业属性"</span>)</span><br><span class="line">    grade = models.PositiveIntegerField(default=<span class="string">'0'</span>, verbose_name=<span class="string">"等级"</span>)</span><br><span class="line">    desc = models.TextField(max_length=<span class="number">15</span>, verbose_name=<span class="string">"个人简介"</span>)  <span class="comment"># 标准十五字</span></span><br><span class="line">    email = models.EmailField(max_length=<span class="number">254</span>, verbose_name=<span class="string">"邮箱"</span>)</span><br><span class="line">    active_level = models.PositiveIntegerField(default=<span class="number">1</span>, verbose_name=<span class="string">"活跃度"</span>)</span><br><span class="line">    status = models.PositiveIntegerField(default=<span class="number">1</span>, choices=USERACCOUNT_STATUS, verbose_name=<span class="string">"账号状态"</span>)</span><br><span class="line">    follows = models.PositiveIntegerField(default=<span class="number">0</span>, verbose_name=<span class="string">"关注数"</span>)</span><br><span class="line">    fans = models.PositiveIntegerField(default=<span class="number">0</span>, verbose_name=<span class="string">"粉丝数"</span>)</span><br><span class="line">    updated = models.DateTimeField(auto_now=<span class="literal">True</span>, verbose_name=<span class="string">"更新日期"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        verbose_name = <span class="string">"用户账户"</span></span><br><span class="line">        verbose_name_plural = verbose_name</span><br><span class="line">        ordering = (<span class="string">"-date_joined"</span>,)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.username</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">all_valid</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> UserAccount.objects.filter(status=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getValidUser</span><span class="params">(self, id)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> UserAccount.objects.filter(id=id, status=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 活跃度 +1</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">increase_active_level</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.active_level += <span class="number">1</span></span><br><span class="line">        self.save(update_fields=[<span class="string">'active_level'</span>, <span class="string">'updated'</span>])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 活跃度 -1</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lower_active_level</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.active_level -= <span class="number">1</span></span><br><span class="line">        self.save(update_fields=[<span class="string">'active_level'</span>, <span class="string">'updated'</span>])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 关注数 +1</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">increase_follows</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.follows += <span class="number">1</span></span><br><span class="line">        self.save(update_fields=[<span class="string">'follows'</span>, <span class="string">'updated'</span>])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 关注数 -1</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lower_follows</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.follows -= <span class="number">1</span></span><br><span class="line">        self.save(update_fields=[<span class="string">'follows'</span>, <span class="string">'updated'</span>])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 粉丝数 +1</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">increase_fans</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.fans += <span class="number">1</span></span><br><span class="line">        self.save(update_fields=[<span class="string">'fans'</span>])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 粉丝数 -1</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lower_fans</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.fans -= <span class="number">1</span></span><br><span class="line">        self.save(update_fields=[<span class="string">'fans'</span>])</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="serializers-py-基本使用-serializers-使用方式比较繁多，也灵活，后续再写文章详细讲解"><a href="#serializers-py-基本使用-serializers-使用方式比较繁多，也灵活，后续再写文章详细讲解" class="headerlink" title="serializers.py 基本使用(serializers 使用方式比较繁多，也灵活，后续再写文章详细讲解)"></a>serializers.py 基本使用(serializers 使用方式比较繁多，也灵活，后续再写文章详细讲解)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> serializers</span><br><span class="line"><span class="keyword">from</span> rest_framework.validators <span class="keyword">import</span> UniqueValidator</span><br><span class="line"><span class="keyword">from</span> django.contrib.auth <span class="keyword">import</span> get_user_model</span><br><span class="line"><span class="keyword">from</span> rest_framework_jwt.settings <span class="keyword">import</span> api_settings</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> apps.util <span class="keyword">import</span> VerifyCodeUtil</span><br><span class="line"></span><br><span class="line">User = get_user_model()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用户注册序列化 - 用户注册</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserRegisterSerializer</span><span class="params">(serializers.ModelSerializer)</span>:</span></span><br><span class="line"></span><br><span class="line">    mobile = serializers.CharField(</span><br><span class="line">            label=<span class="string">"手机号"</span>, required=<span class="literal">True</span>, allow_blank=<span class="literal">False</span>,</span><br><span class="line">            validators=[UniqueValidator(queryset=User.objects.filter(status=<span class="number">1</span>), message=<span class="string">"手机号已注册"</span>)])</span><br><span class="line"></span><br><span class="line">    code = serializers.CharField(required=<span class="literal">True</span>, write_only=<span class="literal">True</span>, max_length=<span class="number">4</span>, min_length=<span class="number">4</span>, label=<span class="string">"验证码"</span>,</span><br><span class="line">                                 error_messages=&#123;</span><br><span class="line">                                                <span class="string">"blank"</span>: <span class="string">"请输入验证码"</span>,</span><br><span class="line">                                                <span class="string">"required"</span>: <span class="string">"请输入验证码"</span>,</span><br><span class="line">                                                <span class="string">"max_length"</span>: <span class="string">"验证码格式错误"</span>,</span><br><span class="line">                                                <span class="string">"min_length"</span>: <span class="string">"验证码格式错误"</span></span><br><span class="line">                                                &#125;</span><br><span class="line">                                 )</span><br><span class="line">    username = serializers.CharField(read_only=<span class="literal">True</span>, label=<span class="string">"用户名"</span>)</span><br><span class="line">    <span class="comment"># token = serializers.CharField(read_only=True, label="token")</span></span><br><span class="line">    <span class="comment"># username = serializers.CharField(label="用户名", required=False,  # required=True, allow_blank=False,</span></span><br><span class="line">    <span class="comment">#                                  validators=[UniqueValidator(queryset=User.objects.filter(status=1),</span></span><br><span class="line">    <span class="comment">#                                  message="用户名已存在")])</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="comment"># password = serializers.CharField(min_length=6, max_length=16, label="密码", required=False,  # required=True,</span></span><br><span class="line">    <span class="comment">#                                  write_only=True, style=&#123;'input_type': 'password'&#125;,</span></span><br><span class="line">    <span class="comment">#                                  error_messages=&#123;"min_length": "密码最少为6位", "max_length": "密码最多为16位"&#125;</span></span><br><span class="line">    <span class="comment">#                                  )</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">validate_code</span><span class="params">(self, code)</span>:</span></span><br><span class="line">        <span class="comment"># 验证码验证</span></span><br><span class="line">        VerifyCodeUtil.code_validate(serializers, self.initial_data[<span class="string">"mobile"</span>], self.initial_data[<span class="string">"code"</span>])</span><br><span class="line">        <span class="keyword">return</span> code</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        model = User</span><br><span class="line">        fields = (<span class="string">"id"</span>, <span class="string">"mobile"</span>, <span class="string">"code"</span>, <span class="string">"username"</span>)  <span class="comment"># , "token")  # , "password")</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create</span><span class="params">(self, validated_data)</span>:</span></span><br><span class="line">        <span class="keyword">del</span> validated_data[<span class="string">"code"</span>]  <span class="comment"># 新建用户不需要验证码</span></span><br><span class="line">        validated_data[<span class="string">"username"</span>] = validated_data[<span class="string">"mobile"</span>]  <span class="comment"># 用户名默认为手机号</span></span><br><span class="line">        user = super().create(validated_data)</span><br><span class="line">        user.mobile = validated_data[<span class="string">'mobile'</span>]</span><br><span class="line">        user.username = validated_data[<span class="string">'mobile'</span>]  <span class="comment"># 用户名默认为手机号</span></span><br><span class="line">        <span class="comment"># user.set_password(validated_data["password"])</span></span><br><span class="line">        user.save()</span><br><span class="line">        <span class="comment"># 生成jtw</span></span><br><span class="line">        <span class="comment"># jwt_payload_handler = api_settings.</span></span><br><span class="line">        <span class="comment"># token = 'token'</span></span><br><span class="line">        <span class="comment"># user.token = token</span></span><br><span class="line">        <span class="keyword">return</span> user</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用户基本信息操作验证</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserInformationDetailSerializer</span><span class="params">(serializers.ModelSerializer)</span>:</span></span><br><span class="line">    <span class="comment"># _href = serializers.HyperlinkedIdentityField(view_name='importers-test-detail')</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        model = User</span><br><span class="line">        fields = (<span class="string">"avatar"</span>, <span class="string">"bji"</span>, <span class="string">"gender"</span>, <span class="string">"job"</span>, <span class="string">"desc"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">update</span><span class="params">(self, user, validated_data)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> validated_data[<span class="string">"avatar"</span>]:</span><br><span class="line">            user.avatar = validated_data[<span class="string">"avatar"</span>]</span><br><span class="line">        <span class="keyword">if</span> validated_data[<span class="string">"bji"</span>]:</span><br><span class="line">            user.bji = validated_data[<span class="string">"bji"</span>]</span><br><span class="line">        <span class="keyword">if</span> validated_data[<span class="string">"gender"</span>]:</span><br><span class="line">            user.gender = validated_data[<span class="string">"gender"</span>]</span><br><span class="line">        <span class="keyword">if</span> validated_data[<span class="string">"desc"</span>]:</span><br><span class="line">            user.desc = validated_data[<span class="string">"desc"</span>]</span><br><span class="line">        <span class="keyword">if</span> validated_data[<span class="string">"job"</span>]:</span><br><span class="line">            user.job = validated_data[<span class="string">"job"</span>]</span><br><span class="line">        user.save()</span><br><span class="line">        <span class="keyword">return</span> user</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用户敏感信息操作验证</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserAccountDetailSerializer</span><span class="params">(serializers.ModelSerializer)</span>:</span></span><br><span class="line"></span><br><span class="line">    mobile = serializers.CharField(label=<span class="string">"手机号"</span>, required=<span class="literal">False</span>,</span><br><span class="line">                                   validators=[UniqueValidator(queryset=User.objects.filter(status=<span class="number">1</span>), message=<span class="string">"手机号已注册"</span>)])</span><br><span class="line"></span><br><span class="line">    username = serializers.CharField(label=<span class="string">"用户名"</span>, required=<span class="literal">False</span>,</span><br><span class="line">                                     validators=[UniqueValidator(queryset=User.objects.filter(status=<span class="number">1</span>), message=<span class="string">"用户名已存在"</span>)])</span><br><span class="line"></span><br><span class="line">    password = serializers.CharField(min_length=<span class="number">6</span>, max_length=<span class="number">16</span>, required=<span class="literal">False</span>, label=<span class="string">"密码"</span>,</span><br><span class="line">                                     write_only=<span class="literal">True</span>, style=&#123;<span class="string">'input_type'</span>: <span class="string">'password'</span>&#125;,</span><br><span class="line">                                     error_messages=&#123;<span class="string">"min_length"</span>: <span class="string">"密码最少为6位"</span>, <span class="string">"max_length"</span>: <span class="string">"密码最多为16位"</span>&#125;</span><br><span class="line">                                     )</span><br><span class="line"></span><br><span class="line">    code = serializers.CharField(required=<span class="literal">True</span>, write_only=<span class="literal">True</span>, max_length=<span class="number">4</span>, min_length=<span class="number">4</span>, label=<span class="string">"验证码"</span>,</span><br><span class="line">                                 error_messages=&#123;</span><br><span class="line">                                                <span class="string">"blank"</span>: <span class="string">"请输入验证码"</span>,</span><br><span class="line">                                                <span class="string">"required"</span>: <span class="string">"请输入验证码"</span>,</span><br><span class="line">                                                <span class="string">"max_length"</span>: <span class="string">"验证码格式错误"</span>,</span><br><span class="line">                                                <span class="string">"min_length"</span>: <span class="string">"验证码格式错误"</span></span><br><span class="line">                                                &#125;</span><br><span class="line">                                 )</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        model = User</span><br><span class="line">        fields = (<span class="string">"username"</span>, <span class="string">"email"</span>, <span class="string">"mobile"</span>, <span class="string">"password"</span>, <span class="string">"code"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># def validate_mobile(self, mobile):</span></span><br><span class="line">    <span class="comment">#     # 新手机号验证</span></span><br><span class="line">    <span class="comment">#     VerifyCodeUtil.mobile_validate(serializers, mobile)</span></span><br><span class="line">    <span class="comment">#     return mobile</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">validate_code</span><span class="params">(self, code)</span>:</span></span><br><span class="line">        <span class="comment"># 验证码验证</span></span><br><span class="line">        VerifyCodeUtil.code_validate(serializers, self.instance.mobile, code)</span><br><span class="line">        <span class="comment"># del attrs["code"]</span></span><br><span class="line">        <span class="keyword">return</span> code</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">update</span><span class="params">(self, user, validated_data)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> validated_data.get(<span class="string">"mobile"</span>, <span class="string">""</span>):</span><br><span class="line">            user.mobile = validated_data[<span class="string">"mobile"</span>]</span><br><span class="line">        <span class="keyword">if</span> validated_data.get(<span class="string">"username"</span>, <span class="string">""</span>):</span><br><span class="line">            user.username = validated_data[<span class="string">"username"</span>]</span><br><span class="line">        <span class="keyword">if</span> validated_data.get(<span class="string">"email"</span>, <span class="string">""</span>):</span><br><span class="line">            user.email = validated_data[<span class="string">"email"</span>]</span><br><span class="line">        <span class="keyword">if</span> validated_data.get(<span class="string">"password"</span>, <span class="string">""</span>):</span><br><span class="line">            user.set_password(validated_data[<span class="string">"password"</span>])</span><br><span class="line">        user.save()</span><br><span class="line">        <span class="keyword">return</span> user</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="views-py-基本使用-views-使用方式比较繁多，也灵活，后续再写文章详细讲解"><a href="#views-py-基本使用-views-使用方式比较繁多，也灵活，后续再写文章详细讲解" class="headerlink" title="views.py 基本使用(views 使用方式比较繁多，也灵活，后续再写文章详细讲解)"></a>views.py 基本使用(views 使用方式比较繁多，也灵活，后续再写文章详细讲解)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib.auth.backends <span class="keyword">import</span> ModelBackend</span><br><span class="line"><span class="keyword">from</span> django.contrib.auth <span class="keyword">import</span> get_user_model</span><br><span class="line"><span class="keyword">from</span> django.db.models <span class="keyword">import</span> Q</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> mixins, permissions</span><br><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> viewsets</span><br><span class="line"><span class="keyword">from</span> rest_framework.authentication <span class="keyword">import</span> SessionAuthentication</span><br><span class="line"><span class="keyword">from</span> rest_framework.pagination <span class="keyword">import</span> PageNumberPagination</span><br><span class="line"><span class="keyword">from</span> rest_framework.permissions <span class="keyword">import</span> BasePermission</span><br><span class="line"><span class="keyword">from</span> rest_framework_jwt.authentication <span class="keyword">import</span> JSONWebTokenAuthentication</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> account.serializers <span class="keyword">import</span> UserAccountDetailSerializer, SmsSerializer, UserRegisterSerializer, UserInformationDetailSerializer</span><br><span class="line"><span class="keyword">from</span> util <span class="keyword">import</span> VerifyCodeUtil</span><br><span class="line"></span><br><span class="line">User = get_user_model()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义用户验证规则 - 登录，用户名密码登录</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ToLogin</span><span class="params">(ModelBackend)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">authenticate</span><span class="params">(self, request, username=None, password=None, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            users = User.objects.filter(Q(username=username) | Q(mobile=username) | Q(email=username)).exclude(status=<span class="number">0</span>)</span><br><span class="line">            <span class="comment"># django的后台中密码加密验证调用 check_password(self, raw_password):</span></span><br><span class="line">            <span class="keyword">if</span> users:</span><br><span class="line">                <span class="keyword">for</span> user <span class="keyword">in</span> users:</span><br><span class="line">                    <span class="keyword">if</span> user.check_password(password):</span><br><span class="line">                        <span class="keyword">return</span> user</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义用户验证规则 - 登录，手机号验证码登录</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MobileToLogin</span><span class="params">(ModelBackend)</span>:</span></span><br><span class="line">    <span class="comment"># username 为手机号码，password 为验证码</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">authenticate</span><span class="params">(self, request, username=None, password=None, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">if</span> len(password) == <span class="number">4</span>:</span><br><span class="line">                <span class="comment"># 验证码验证</span></span><br><span class="line">                <span class="keyword">if</span> VerifyCodeUtil.mobile_code_validate(username, password):</span><br><span class="line">                    users = User.objects.filter(mobile=username)</span><br><span class="line">                    <span class="keyword">if</span> users:  <span class="comment"># 该手机号信息存在，返回有效用户信息</span></span><br><span class="line">                        <span class="keyword">for</span> user <span class="keyword">in</span> users:</span><br><span class="line">                            <span class="keyword">if</span> user.status == <span class="number">1</span>:</span><br><span class="line">                                <span class="keyword">return</span> user</span><br><span class="line">                    <span class="keyword">else</span>:  <span class="comment"># 该手机号信息不存在，创建用户信息并返回</span></span><br><span class="line">                        ur_data = &#123;<span class="string">'mobile'</span>: username, <span class="string">'code'</span>: password&#125;</span><br><span class="line">                        ur_i = UserRegisterSerializer(data=ur_data)</span><br><span class="line">                        <span class="keyword">if</span> ur_i.is_valid():</span><br><span class="line">                            <span class="keyword">return</span> ur_i.create(ur_i.validated_data)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 分页</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BasePagination</span><span class="params">(PageNumberPagination)</span>:</span></span><br><span class="line"></span><br><span class="line">    page_size = <span class="number">2</span></span><br><span class="line">    page_size_query_param = <span class="string">'page_size'</span></span><br><span class="line">    page_query_param = <span class="string">"page"</span></span><br><span class="line">    max_page_size = <span class="number">100</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserRegisterViewset</span><span class="params">(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    用户注册</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    serializer_class = UserRegisterSerializer</span><br><span class="line"></span><br><span class="line">    <span class="comment"># permission_classes = (permissions.IsAuthenticated, )</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_permissions</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.action == <span class="string">"list"</span>:</span><br><span class="line">            <span class="keyword">return</span> [permissions.IsAdminUser()]</span><br><span class="line">        <span class="keyword">elif</span> self.action == <span class="string">"create"</span>:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        <span class="keyword">return</span> []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_queryset</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> User.objects.filter(status=<span class="number">1</span>).order_by(<span class="string">'-date_joined'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用户基本信息操作</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserInformationViewSet</span><span class="params">(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet)</span>:</span></span><br><span class="line"></span><br><span class="line">    serializer_class = UserInformationDetailSerializer</span><br><span class="line">    <span class="comment"># permission_classes = (permissions.IsAuthenticated, )</span></span><br><span class="line">    <span class="comment"># 标记需要进行jwt验证</span></span><br><span class="line">    authentication_classes = (JSONWebTokenAuthentication,)  <span class="comment"># , SessionAuthentication)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># def get_permissions(self):</span></span><br><span class="line">    <span class="comment">#     if self.action == "retrieve":</span></span><br><span class="line">    <span class="comment">#         return [permissions.IsAuthenticated()]</span></span><br><span class="line">    <span class="comment">#     elif self.action == "update":</span></span><br><span class="line">    <span class="comment">#         return [permissions.IsAuthenticated()]</span></span><br><span class="line">    <span class="comment">#     return [p() for p in self.permission_classes]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 重写该方法，不管传什么id，都只返回当前用户</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_object</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.request.user</span><br><span class="line"></span><br><span class="line">    <span class="comment"># def get_queryset(self):</span></span><br><span class="line">    <span class="comment">#     return User.objects.filter(status=1).order_by('-date_joined')</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用户敏感信息操作</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserAccountViewSet</span><span class="params">(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet)</span>:</span></span><br><span class="line"></span><br><span class="line">    serializer_class = UserAccountDetailSerializer</span><br><span class="line">    permission_classes = (permissions.IsAuthenticated, )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># def get_permissions(self):</span></span><br><span class="line">    <span class="comment">#     if self.action == "list":</span></span><br><span class="line">    <span class="comment">#         return [permissions.IsAdminUser()]</span></span><br><span class="line">    <span class="comment">#     elif self.action == "retrieve":</span></span><br><span class="line">    <span class="comment">#         return [permissions.IsAuthenticated()]</span></span><br><span class="line">    <span class="comment">#     elif self.action == "update":</span></span><br><span class="line">    <span class="comment">#         return [permissions.IsAuthenticated()]</span></span><br><span class="line">    <span class="comment">#     return [permissions.IsAdminUser()]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 重写该方法，不管传什么id，都只返回当前用户</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_object</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.request.user</span><br><span class="line"></span><br><span class="line">    <span class="comment"># def get_queryset(self):</span></span><br><span class="line">    <span class="comment">#     return User.objects.filter(status=1).order_by('-date_joined')</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="urls-py-基本使用-urls-管理配置方式，这里只做参考"><a href="#urls-py-基本使用-urls-管理配置方式，这里只做参考" class="headerlink" title="urls.py 基本使用(urls 管理配置方式，这里只做参考)"></a>urls.py 基本使用(urls 管理配置方式，这里只做参考)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#  ####### 赴梦网络</span></span><br><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> include, url</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"><span class="keyword">from</span> rest_framework_jwt.views <span class="keyword">import</span> obtain_jwt_token, refresh_jwt_token, verify_jwt_token</span><br><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> routers</span><br><span class="line"><span class="keyword">import</span> xadmin</span><br><span class="line"><span class="keyword">from</span> account.views <span class="keyword">import</span> SmsCodeViewSet, UserRegisterViewset, UserInformationViewSet, UserAccountViewSet</span><br><span class="line"><span class="keyword">from</span> security.views <span class="keyword">import</span> PrivacyViewset, ProposalViewset</span><br><span class="line"><span class="keyword">from</span> region.views <span class="keyword">import</span> UserRegionViewset, RegionViewset</span><br><span class="line"></span><br><span class="line">router = routers.DefaultRouter()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取验证码</span></span><br><span class="line">router.register(<span class="string">r'code'</span>, SmsCodeViewSet, base_name=<span class="string">'codes'</span>)</span><br><span class="line"><span class="comment"># 用户注册</span></span><br><span class="line">router.register(<span class="string">r'register'</span>, UserRegisterViewset, base_name=<span class="string">'register'</span>)</span><br><span class="line"><span class="comment"># 用户基本信息操作</span></span><br><span class="line">router.register(<span class="string">r'userInfo'</span>, UserInformationViewSet, base_name=<span class="string">'UserInfo'</span>)</span><br><span class="line"><span class="comment"># 用户敏感信息操作</span></span><br><span class="line">router.register(<span class="string">r'userAccount'</span>, UserAccountViewSet, base_name=<span class="string">'UserAccount'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 社区</span></span><br><span class="line">router.register(<span class="string">r'region'</span>, RegionViewset, base_name=<span class="string">'Region'</span>)</span><br><span class="line"><span class="comment"># 用户与社区</span></span><br><span class="line">router.register(<span class="string">r'userRegion'</span>, UserRegionViewset, base_name=<span class="string">'UserRegion'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 隐私 隐私管理</span></span><br><span class="line">router.register(<span class="string">r'privacy'</span>, PrivacyViewset, base_name=<span class="string">'Privacy'</span>)</span><br><span class="line"><span class="comment"># 建议箱  我的建议</span></span><br><span class="line">router.register(<span class="string">r'proposal'</span>, ProposalViewset, base_name=<span class="string">'Proposal'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    <span class="comment"># ADMIN URL 后台管理</span></span><br><span class="line">    <span class="comment"># path('admin/', admin.site.urls),</span></span><br><span class="line">    path(<span class="string">"xadmin/"</span>, xadmin.site.urls),</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 后台 api 查看测试</span></span><br><span class="line">    path(<span class="string">"api/"</span>, include(<span class="string">'rest_framework.urls'</span>, namespace=<span class="string">'rest_framework'</span>)),</span><br><span class="line">    <span class="comment"># path("api-token-auth/", views.obtain_auth_token),  # drf 自带的 token 认证</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># jwt token 认证</span></span><br><span class="line">    path(<span class="string">"api-token-auth/"</span>, obtain_jwt_token),  <span class="comment"># POST 获取令牌  # 登录获取令牌</span></span><br><span class="line">    path(<span class="string">"api-token-refresh/"</span>, refresh_jwt_token),  <span class="comment"># 刷新令牌 可以“刷新” 未过期的令牌以获得具有更新到期时间的全新令牌</span></span><br><span class="line">    path(<span class="string">"api-token-verify/"</span>, verify_jwt_token),  <span class="comment"># 验证令牌 在将受保护资源返回给用户之前等待JWT有效的确认</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 登录</span></span><br><span class="line">    path(<span class="string">"login/"</span>, obtain_jwt_token),  <span class="comment"># 登录获取令牌</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># API URLS</span></span><br><span class="line">    <span class="comment"># url("", include(router.urls)),</span></span><br><span class="line"></span><br><span class="line">] + router.urls  <span class="comment"># API URLS</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="settings-py-基本使用-settings-配置比较繁多，这里只做参考，后续再写文章详细讲解"><a href="#settings-py-基本使用-settings-配置比较繁多，这里只做参考，后续再写文章详细讲解" class="headerlink" title="settings.py 基本使用(settings 配置比较繁多，这里只做参考，后续再写文章详细讲解)"></a>settings.py 基本使用(settings 配置比较繁多，这里只做参考，后续再写文章详细讲解)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#  ####### 赴梦网络</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> platform</span><br><span class="line"><span class="keyword">from</span> django.utils.translation <span class="keyword">import</span> ugettext_lazy <span class="keyword">as</span> _</span><br><span class="line"></span><br><span class="line"><span class="comment"># Build paths inside the project like this: os.path.join(BASE_DIR, ...)</span></span><br><span class="line">BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入资源包</span></span><br><span class="line"><span class="comment"># sys.path.insert(0, os.path.join(BASE_DIR, "apps"))</span></span><br><span class="line"><span class="comment"># sys.path.insert(1, os.path.join(BASE_DIR, "extra_apps"))</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Quick-start development settings - unsuitable for production</span></span><br><span class="line"><span class="comment"># See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># SECURITY WARNING: keep the secret key used in production secret!</span></span><br><span class="line">SECRET_KEY = <span class="string">'***************************************************'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断当前操作系统</span></span><br><span class="line">this_os = <span class="string">'Windows'</span> <span class="keyword">not</span> <span class="keyword">in</span> list(platform.uname())</span><br><span class="line"></span><br><span class="line"><span class="comment"># SECURITY WARNING: don't run with debug turned on in production!</span></span><br><span class="line"><span class="comment"># 运行模式 DEBUG</span></span><br><span class="line">DEBUG = this_os</span><br><span class="line"></span><br><span class="line">ALLOWED_HOSTS = [<span class="string">'*'</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Application definition</span></span><br><span class="line"></span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="string">'django.contrib.admin'</span>,</span><br><span class="line">    <span class="string">'django.contrib.auth'</span>,</span><br><span class="line">    <span class="string">'django.contrib.contenttypes'</span>,</span><br><span class="line">    <span class="string">'django.contrib.sessions'</span>,</span><br><span class="line">    <span class="string">'django.contrib.messages'</span>,</span><br><span class="line">    <span class="string">'django.contrib.staticfiles'</span>,</span><br><span class="line">    <span class="string">'rest_framework'</span>,</span><br><span class="line">    <span class="string">'rest_framework.authtoken'</span>,</span><br><span class="line">    <span class="string">'corsheaders'</span>,</span><br><span class="line"></span><br><span class="line">    <span class="string">'extra_apps.xadmin'</span>,</span><br><span class="line">    <span class="string">'crispy_forms'</span>,</span><br><span class="line">    <span class="string">'reversion'</span>,</span><br><span class="line"></span><br><span class="line">    <span class="string">'account'</span>,</span><br><span class="line">    <span class="string">'base'</span>,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">MIDDLEWARE = [</span><br><span class="line">    <span class="string">'django.middleware.security.SecurityMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.contrib.sessions.middleware.SessionMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.middleware.common.CommonMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.middleware.csrf.CsrfViewMiddleware'</span>,  <span class="comment">#</span></span><br><span class="line">    <span class="string">'django.contrib.auth.middleware.AuthenticationMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.contrib.messages.middleware.MessageMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.middleware.clickjacking.XFrameOptionsMiddleware'</span>,</span><br><span class="line">    <span class="string">'corsheaders.middleware.CorsMiddleware'</span>,  <span class="comment"># 设置浏览器跨域问题</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">ROOT_URLCONF = <span class="string">'fmwl.urls'</span></span><br><span class="line"></span><br><span class="line">TEMPLATES = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'BACKEND'</span>: <span class="string">'django.template.backends.django.DjangoTemplates'</span>,</span><br><span class="line">        <span class="string">'DIRS'</span>: [os.path.join(BASE_DIR, <span class="string">'templates'</span>)]</span><br><span class="line">        ,</span><br><span class="line">        <span class="string">'APP_DIRS'</span>: <span class="literal">True</span>,</span><br><span class="line">        <span class="string">'OPTIONS'</span>: &#123;</span><br><span class="line">            <span class="string">'context_processors'</span>: [</span><br><span class="line">                <span class="string">'django.template.context_processors.debug'</span>,</span><br><span class="line">                <span class="string">'django.template.context_processors.request'</span>,</span><br><span class="line">                <span class="string">'django.contrib.auth.context_processors.auth'</span>,</span><br><span class="line">                <span class="string">'django.contrib.messages.context_processors.messages'</span>,</span><br><span class="line">            ],</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">WSGI_APPLICATION = <span class="string">'fmwl.wsgi.application'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Database</span></span><br><span class="line"><span class="comment"># https://docs.djangoproject.com/en/2.1/ref/settings/#databases</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># DATABASES = &#123;</span></span><br><span class="line"><span class="comment"># #     'default': &#123;</span></span><br><span class="line"><span class="comment"># #         'ENGINE': 'django.db.backends.sqlite3',</span></span><br><span class="line"><span class="comment"># #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),</span></span><br><span class="line"><span class="comment"># #     &#125;</span></span><br><span class="line"><span class="comment"># # &#125;</span></span><br><span class="line"><span class="comment"># 使用 mysql 数据库</span></span><br><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">'default'</span>: &#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.mysql'</span>,</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'fmwl'</span>,</span><br><span class="line">        <span class="string">'USER'</span>: <span class="string">'root'</span>,</span><br><span class="line">        <span class="string">'PASSWORD'</span>: <span class="string">'root'</span>,</span><br><span class="line">        <span class="string">'HOST'</span>: <span class="string">'0-0.life'</span>,</span><br><span class="line">        <span class="string">'PORT'</span>: <span class="string">'3306'</span>,</span><br><span class="line">        <span class="string">'OPTIONS'</span>: &#123;</span><br><span class="line">            <span class="string">'init_command'</span>: <span class="string">"SET sql_mode='STRICT_TRANS_TABLES'"</span>,</span><br><span class="line">            <span class="string">'charset'</span>: <span class="string">'utf8mb4'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Password validation</span></span><br><span class="line"><span class="comment"># https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators</span></span><br><span class="line"></span><br><span class="line">AUTH_PASSWORD_VALIDATORS = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.MinimumLengthValidator'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.CommonPasswordValidator'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.NumericPasswordValidator'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Internationalization</span></span><br><span class="line"><span class="comment"># https://docs.djangoproject.com/en/2.1/topics/i18n/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># LANGUAGE_CODE = 'en-us'</span></span><br><span class="line">LANGUAGE_CODE = <span class="string">'zh-hans'</span>  <span class="comment"># 语言</span></span><br><span class="line"></span><br><span class="line">LANGUAGES = (</span><br><span class="line">    (<span class="string">'en'</span>, _(<span class="string">'English'</span>)),</span><br><span class="line">    (<span class="string">'zh-hans'</span>, _(<span class="string">'Chinese'</span>)),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># TIME_ZONE = 'UTC'</span></span><br><span class="line">TIME_ZONE = <span class="string">'Asia/Shanghai'</span>  <span class="comment"># 时区</span></span><br><span class="line"></span><br><span class="line">USE_I18N = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">USE_L10N = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># USE_TZ = True</span></span><br><span class="line">USE_TZ = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Static files (CSS, JavaScript, Images)</span></span><br><span class="line"><span class="comment"># https://docs.djangoproject.com/en/2.1/howto/static-files/</span></span><br><span class="line"></span><br><span class="line">STATIC_URL = <span class="string">'/static/'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 静态文件 static 集成路径</span></span><br><span class="line">STATIC_ROOT = <span class="string">r'/home/fmwl/static_data/static/'</span> <span class="keyword">if</span> this_os <span class="keyword">else</span> <span class="string">r'C:/Users/static_data/static/'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">STATICFILES_DIRS = (</span><br><span class="line">    os.path.join(BASE_DIR, <span class="string">'static'</span>),  <span class="comment"># 项目文件夹名称</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">AUTH_USER_MODEL = <span class="string">"account.UserAccount"</span>  <span class="comment"># 自定义用户账户模型</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># login 自定义登录验证，配置多个时有一个验证通过即可</span></span><br><span class="line">AUTHENTICATION_BACKENDS = &#123;</span><br><span class="line">     <span class="string">'account.views.ToLogin'</span>,</span><br><span class="line">     <span class="string">'account.views.MobileToLogin'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 缓存过期时间</span></span><br><span class="line">REST_FRAMEWORK_EXTENSIONS = &#123;</span><br><span class="line">    <span class="string">'DEFAULT_CACHE_RESPONSE_TIMEOUT'</span>: <span class="number">60</span> * <span class="number">15</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">LOGOUT_REDIRECT_URL = <span class="string">'/'</span>  <span class="comment"># 缺省的跳转路径 - 登出后</span></span><br><span class="line">LOGIN_REDIRECT_URL = <span class="string">'/'</span>  <span class="comment"># 缺省的跳转路径 - 登录后</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 跨域</span></span><br><span class="line">CORS_ORIGIN_ALLOW_ALL = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">CORS_ORIGIN_WHITELIST = (</span><br><span class="line">    <span class="string">"localhost:3000"</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">CORS_ALLOW_METHODS = (</span><br><span class="line">    <span class="string">'GET'</span>,</span><br><span class="line">    <span class="string">'POST'</span>,</span><br><span class="line">    <span class="string">'PUT'</span>,</span><br><span class="line">    <span class="string">'PATCH'</span>,</span><br><span class="line">    <span class="string">'DELETE'</span>,</span><br><span class="line">    <span class="string">'OPTIONS'</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># JWT config</span></span><br><span class="line">REST_FRAMEWORK = &#123;</span><br><span class="line">    <span class="string">'DEFAULT_AUTHENTICATION_CLASSES'</span>: (</span><br><span class="line">        <span class="string">'rest_framework.authentication.BasicAuthentication'</span>,</span><br><span class="line">        <span class="string">'rest_framework.authentication.SessionAuthentication'</span>,</span><br><span class="line">        <span class="comment"># 'rest_framework.authentication.TokenAuthentication',  # 全局认证drf 自带的</span></span><br><span class="line">        <span class="string">'rest_framework_jwt.authentication.JSONWebTokenAuthentication'</span>,  <span class="comment"># 全局认证，开源 jwt</span></span><br><span class="line">    ),</span><br><span class="line">    <span class="string">'DEFAULT_PERMISSION_CLASSES'</span>: (</span><br><span class="line">        <span class="comment"># 允许的认证方式</span></span><br><span class="line">        <span class="string">'rest_framework.permissions.IsAuthenticated'</span>,  <span class="comment"># 已登录</span></span><br><span class="line">        <span class="comment"># 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'  # 未认证的只读</span></span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># JWT_AUTH = &#123;  # JWT_AUTH 默认配置</span></span><br><span class="line"><span class="comment">#     # see http://getblimp.github.io/django-rest-framework-jwt/</span></span><br><span class="line"><span class="comment">#     'JWT_ENCODE_HANDLER':</span></span><br><span class="line"><span class="comment">#     'rest_framework_jwt.utils.jwt_encode_handler',</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     'JWT_DECODE_HANDLER':</span></span><br><span class="line"><span class="comment">#     'rest_framework_jwt.utils.jwt_decode_handler',</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     'JWT_PAYLOAD_HANDLER':</span></span><br><span class="line"><span class="comment">#     'rest_framework_jwt.utils.jwt_payload_handler',</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     'JWT_PAYLOAD_GET_USER_ID_HANDLER':</span></span><br><span class="line"><span class="comment">#     'rest_framework_jwt.utils.jwt_get_user_id_from_payload_handler',</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     'JWT_RESPONSE_PAYLOAD_HANDLER':</span></span><br><span class="line"><span class="comment">#     'rest_framework_jwt.utils.jwt_response_payload_handler',</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     'JWT_SECRET_KEY': SECRET_KEY,</span></span><br><span class="line"><span class="comment">#     'JWT_GET_USER_SECRET_KEY': None,</span></span><br><span class="line"><span class="comment">#     'JWT_PUBLIC_KEY': None,</span></span><br><span class="line"><span class="comment">#     'JWT_PRIVATE_KEY': None,</span></span><br><span class="line"><span class="comment">#     'JWT_ALGORITHM': 'HS256',</span></span><br><span class="line"><span class="comment">#     'JWT_VERIFY': True,</span></span><br><span class="line"><span class="comment">#     'JWT_VERIFY_EXPIRATION': True,</span></span><br><span class="line"><span class="comment">#     'JWT_LEEWAY': 0,</span></span><br><span class="line"><span class="comment">#     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=300),</span></span><br><span class="line"><span class="comment">#     'JWT_AUDIENCE': None,</span></span><br><span class="line"><span class="comment">#     'JWT_ISSUER': None,</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     'JWT_ALLOW_REFRESH': False,  # 启用令牌刷新功能。发行的令牌rest_framework_jwt.views.obtain_jwt_token将有一个orig_iat字段</span></span><br><span class="line"><span class="comment">#     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     'JWT_AUTH_HEADER_PREFIX': 'JWT',</span></span><br><span class="line"><span class="comment">#     'JWT_AUTH_COOKIE': None,</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># &#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 成功获取认证后返回的数据格式</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">jwt_response_payload_handler</span><span class="params">(token, user=None, request=None)</span>:</span></span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">"token"</span>: token,</span><br><span class="line">        <span class="string">"id"</span>: user.id,</span><br><span class="line">        <span class="string">"username"</span>: user.username,</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> data</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">JWT_AUTH = &#123;</span><br><span class="line">    <span class="string">'JWT_RESPONSE_PAYLOAD_HANDLER'</span>: jwt_response_payload_handler,  <span class="comment"># 成功获取认证后返回的数据格式</span></span><br><span class="line">    <span class="string">'JWT_EXPIRATION_DELTA'</span>: datetime.timedelta(days=<span class="number">7</span>),  <span class="comment"># 验证令牌时所使用的令牌的有效时间</span></span><br><span class="line">    <span class="string">'JWT_ALLOW_REFRESH'</span>: <span class="literal">True</span>,  <span class="comment"># 启用令牌刷新功能。发行的令牌rest_framework_jwt.views.obtain_jwt_token将有一个orig_iat字段</span></span><br><span class="line">    <span class="string">'JWT_REFRESH_EXPIRATION_DELTA'</span>: datetime.timedelta(days=<span class="number">7</span>),  <span class="comment"># 刷新令牌时所使用的旧令牌的有效时间</span></span><br><span class="line">    <span class="string">'JWT_AUTH_HEADER_PREFIX'</span>: <span class="string">'JWT'</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-envira"></i> python</a>
+          
+            <a href="/tags/django/" rel="tag"><i class="fa fa-envira"></i> django</a>
+          
+            <a href="/tags/drf/" rel="tag"><i class="fa fa-envira"></i> drf</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+            
+              <div id="needsharebutton-postbottom">
+                <span class="btn">
+                  <i class="fa fa-share-alt" aria-hidden="true"></i>
+                </span>
+              </div>
+            
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/uncategorized/app1-1/" rel="next" title="赴梦网络">
+                <i class="fa fa-chevron-left"></i> 赴梦网络
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments"></div>
+      
+      <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+      <script src="//cdn.jsdelivr.net/npm/valine@1.1.6/dist/Valine.min.js"></script>
+      <script>
+          new Valine({
+              av: AV,
+              el: '.comments',
+              notify: true, // 邮件提醒 v1.1.4新增，下一步中有具体的邮箱设置
+              verify: true,
+              app_id: '',
+              app_key: '',
+              placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!'
+          });
+      </script>
+      
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+            <a href="/">
+              <img class="site-author-image" itemprop="image" src="/images/cczzrs.jpg" alt="cczzrs">
+             </a>
+            
+              <p class="site-author-name" itemprop="name">cczzrs</p>
+              <div class="site-description motion-element" itemprop="description">Dreams are you live for</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="mailto:cwt@cczzrs.com" title="E-Mail &rarr; mailto:cwt@cczzrs.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/cczzrs" title="GitHub &rarr; https://github.com/cczzrs" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://hub.docker.com/u/cczzrs" title="DockerHub &rarr; https://hub.docker.com/u/cczzrs" rel="noopener" target="_blank"><i class="fa fa-fw fa-dockerhub"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+          
+              <div class="links-of-blogroll-title">
+                <a href="/Glinks">
+                  <i class="fa  fa-fw fa-link"></i>
+                  官方链接
+                </a>
+              </div>
+          
+          
+              <div class="links-of-blogroll-title">
+                <a href="/links">
+                  <i class="fa  fa-fw fa-link"></i>
+                  友情链接
+                </a>
+              </div>
+          
+            </div>
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#python-后端-django-rest-framework-简称-drf-开发"><span class="nav-number">1.</span> <span class="nav-text">python 后端 django rest framework(简称 drf) 开发</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#我这里只讲一些比较重要的难点，本人也是边学边开发的（codeing-是很快的，一半以上的时间都用来学习了）。"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">我这里只讲一些比较重要的难点，本人也是边学边开发的（codeing 是很快的，一半以上的时间都用来学习了）。</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#http-请求进程流程概况：-http-请求-lt-gt-urls-py-中配置转发-lt-gt-views-py-对应处理类及方法-lt-gt-serializers-py-对应处理类及方法-lt-gt-DB-数据库"><span class="nav-number">1.0.1.</span> <span class="nav-text">http 请求进程流程概况： http 请求 &lt;=&gt; urls.py 中配置转发 &lt;=&gt; views.py 对应处理类及方法 &lt;=&gt; serializers.py 对应处理类及方法 &lt;=&gt; DB 数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#按照这个流程开发即快速又高效，前后打通之后，分分钟就能完成一个功能模块的增删改查需求（真的是分分钟哦），"><span class="nav-number">1.0.2.</span> <span class="nav-text">按照这个流程开发即快速又高效，前后打通之后，分分钟就能完成一个功能模块的增删改查需求（真的是分分钟哦），</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请用-jwt-的身份认证，后台管理可以用-xadmin（目前只能支持-django2-0及以下版本），xadmin-模块的问题需要手动修复的。"><span class="nav-number">1.0.3.</span> <span class="nav-text">请用 jwt 的身份认证，后台管理可以用 xadmin（目前只能支持 django2.0及以下版本），xadmin 模块的问题需要手动修复的。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#models-py-基本使用，对应的数据库的表"><span class="nav-number">1.0.4.</span> <span class="nav-text">models.py 基本使用，对应的数据库的表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#serializers-py-基本使用-serializers-使用方式比较繁多，也灵活，后续再写文章详细讲解"><span class="nav-number">1.0.5.</span> <span class="nav-text">serializers.py 基本使用(serializers 使用方式比较繁多，也灵活，后续再写文章详细讲解)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#views-py-基本使用-views-使用方式比较繁多，也灵活，后续再写文章详细讲解"><span class="nav-number">1.0.6.</span> <span class="nav-text">views.py 基本使用(views 使用方式比较繁多，也灵活，后续再写文章详细讲解)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#urls-py-基本使用-urls-管理配置方式，这里只做参考"><span class="nav-number">1.0.7.</span> <span class="nav-text">urls.py 基本使用(urls 管理配置方式，这里只做参考)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#settings-py-基本使用-settings-配置比较繁多，这里只做参考，后续再写文章详细讲解"><span class="nav-number">1.0.8.</span> <span class="nav-text">settings.py 基本使用(settings 配置比较繁多，这里只做参考，后续再写文章详细讲解)</span></a></li></ol></div>
+            
+            
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  
+    <div id="sidebar-dimmer"></div>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  <div class="powered-by" style="margin: 0 10px;">
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+
+    <span class="with-love" id="animate">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">cczzrs</span>
+  </div>
+
+<!--
+  <div class="powered-by" style="margin: 0 10px;">
+    <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv"> 本站访客数: <span id="busuanzi_value_site_uv"></span></span>
+  </div>
+  <div class="powered-by" style="margin: 0 10px;">
+    <i class="fa fa-eye"></i><span id="busuanzi_container_site_pv"> 本站总访问量: <span id="busuanzi_value_site_pv"></span></span>
+  </div>
+  <br/>-->
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'WEMzkN3cVFwbGFdtMSsGRmmw-9Nh9j0Va',
+    appKey: 'XjMXac055sB9mSqH4FLk5OEp',
+    placeholder: 'Just go go',
+    avatar: 'wavatar',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+      pbOptions = {};
+      
+        pbOptions.iconStyle = "box";
+      
+        pbOptions.boxForm = "horizontal";
+      
+        pbOptions.position = "bottomCenter";
+      
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+        flOptions.iconStyle = "box";
+      
+        flOptions.boxForm = "horizontal";
+      
+        flOptions.position = "middleRight";
+      
+        flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+<!-- 页面点击小红心
+<script type="text/javascript" src="/js/src/love.js"></script> -->
+<!-- 调整聊天窗口显示样式 -->
+<script type="text/javascript">
+  $(function(){
+    var intervalId = setInterval(function () {
+      var t = $("#daodream-launcher")[0];
+      if (t){
+        // t.style["bottom"] = "90px";
+        var v = $("#daodream-messenger > div");
+        for(var i=0;i<v.length;i++){
+          $(v[i])[0].style.width="280px";
+        }
+        // $(".main-inner")[0].style.width="71%";
+        // $(".main-inner")[0].style["padding-right"]="38px";
+        clearInterval(intervalId);
+      }
+    }, 1000);
+  });
+</script>
+<!-- dockerhub图标 -->
+<script type="text/javascript">
+  $(function(){
+    var t = $("[class$='fa-dockerhub']")[0];
+    if (t){
+      t = $(t);
+      t.html('<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" class="dicon   " viewBox="0 0 36 26"><path d="M35.2114674,9.90088871 C34.4018592,9.33913616 32.5465072,9.12847895 31.0959592,9.40935523 C30.9272908,8.00497385 30.1514163,6.77614015 28.8020694,5.68774458 L28.0261949,5.12599203 L27.4864561,5.93351132 C26.8117826,6.98679735 26.4744459,8.4613978 26.5756469,9.86577918 C26.6093806,10.3573127 26.778049,11.235051 27.2840541,12.0074608 C26.8117826,12.2883371 25.8335061,12.6394324 24.5516265,12.6394324 L0.16218026,12.6394324 L0.0947129121,12.9203087 C-0.141422805,14.32469 -0.141422805,18.7133819 2.62473845,22.0838972 C4.71622623,24.6468932 7.81972423,25.9459459 11.9014988,25.9459459 C20.7397213,25.9459459 27.2840541,21.6976923 30.3538184,14.0087042 C31.5682306,14.0438138 34.1657235,14.0087042 35.4813368,11.3754892 C35.5150705,11.3052701 35.5825378,11.1648319 35.8186736,10.6381889 L35.9536082,10.3573127 L35.2114674,9.90088871 L35.2114674,9.90088871 Z M19.6602438,0 L15.9495396,0 L15.9495396,3.51095344 L19.6602438,3.51095344 L19.6602438,0 L19.6602438,0 Z M19.6602438,4.21314413 L15.9495396,4.21314413 L15.9495396,7.72409758 L19.6602438,7.72409758 L19.6602438,4.21314413 L19.6602438,4.21314413 Z M15.2748662,4.21314413 L11.564162,4.21314413 L11.564162,7.72409758 L15.2748662,7.72409758 L15.2748662,4.21314413 L15.2748662,4.21314413 Z M10.8894886,4.21314413 L7.17878443,4.21314413 L7.17878443,7.72409758 L10.8894886,7.72409758 L10.8894886,4.21314413 L10.8894886,4.21314413 Z M6.50411095,8.42628826 L2.79340682,8.42628826 L2.79340682,11.9372417 L6.50411095,11.9372417 L6.50411095,8.42628826 L6.50411095,8.42628826 Z M10.8894886,8.42628826 L7.17878443,8.42628826 L7.17878443,11.9372417 L10.8894886,11.9372417 L10.8894886,8.42628826 L10.8894886,8.42628826 Z M15.2748662,8.42628826 L11.564162,8.42628826 L11.564162,11.9372417 L15.2748662,11.9372417 L15.2748662,8.42628826 L15.2748662,8.42628826 Z M19.6602438,8.42628826 L15.9495396,8.42628826 L15.9495396,11.9372417 L19.6602438,11.9372417 L19.6602438,8.42628826 L19.6602438,8.42628826 Z M24.0456214,8.42628826 L20.3349172,8.42628826 L20.3349172,11.9372417 L24.0456214,11.9372417 L24.0456214,8.42628826 L24.0456214,8.42628826 Z"></path></svg>');
+      t[0].style.fill = "#555"
+    }
+    // 收起评论插件展示信息
+    $("#comments > .info").hide();
+    // var intervalId = setInterval(function () {
+    //   if ($("#comments > .info").length > 0){
+    //     $("#comments > .info").hide();
+    //     clearInterval(intervalId);
+    //   }
+    // }, 1000);
+  });
+</script>
+
+</html>
